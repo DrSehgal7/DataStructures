@@ -1,1 +1,79 @@
+//Submitted By:-Hritik
 
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+bool isBalance(char left, char right)
+{
+	if (left == '[' && right == ']')
+		return true;
+
+	else if (left == '{' && right == '}')
+		return true;
+
+	else if (left == '(' && right == ')')
+		return true;
+
+	else
+		return false;
+}
+
+//function for checking whether current string is balanced or not
+string isBalanced(string s) {
+	stack<char> S;
+	int n = s.length();
+  //empty string is always balanced
+	if (n < 1)
+		return "TRUE";
+
+	for (int i = 0; i < n; i++)
+	{
+		if (s[i] == '(' || s[i] == '{' || s[i] == '[')
+			S.push(s[i]);
+
+		else
+		{
+      // if stack is empty it means encountered right bracket before any left so string is not balanced
+			if (S.empty() == true)
+				return "NO";
+
+			else
+			{
+				char c = S.top();
+				S.pop();
+
+				if (!isBalanced(c, s[i]))
+					return "NO";
+			}
+		}
+	}
+
+ //If stack is not empty it means there are more left brackets than right ones so again not balanced string
+	if (S.empty() != true)
+		return "NO";
+
+	else
+		return "YES";
+
+
+}
+
+
+
+int main()
+{
+
+	int T;
+	cin >> T;
+	while (T--)
+	{
+		string inputString;
+		cin >> inputString;
+		cout << isBalanced(inputString) << "\n";
+
+	}
+
+	return 0;
+}
